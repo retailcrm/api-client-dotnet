@@ -13,7 +13,7 @@ Usage
 
 ### Create API client class
 
-``` cs
+``` csharp
 using RetailCrm;
 ...
 RestApi api = new RestApi(
@@ -28,7 +28,7 @@ Constructor arguments are:
 
 ### Example: get order types list
 
-``` cs
+``` csharp
 
 string url, key;
 Dictionary<string, object> orderTypes = new Dictionary<string, object>();

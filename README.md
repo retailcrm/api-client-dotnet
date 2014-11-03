@@ -23,7 +23,7 @@ RestApi api = new RestApi(
 ```
 Constructor arguments are:
 
-1. Your IntaroCRM acount URL-address
+1. Your RetailCRM acount URL-address
 2. Your site API Token
 
 ### Example: get order types list

@@ -1,17 +1,17 @@
-RetailCRM REST API client for .NET
-==================================
+.NET-клиент для retailCRM API
+=============================
 
-Java Client for [RetailCRM REST API](http://www.retailcrm.ru/docs/rest-api/index.html).
+.NET-клиент для работы с [RetailCRM API](http://www.retailcrm.ru/docs/rest-api/index.html).
 version: 3.0.0
 
-Requirements
-------------
+Обязательные требования
+-----------------------
 * [Newtonsoft.Json](http://james.newtonking.com/json)
 
-Usage
-------------
+Примеры использования
+---------------------
 
-### Create API client class
+### Получение информации о заказе
 
 ``` csharp
 using RetailCrm;
@@ -20,19 +20,38 @@ using RetailCrm.Response;
 ApiClient api;
 try
 {
-    api = new ApiClient("https://demo.retailcrm.ru", "T9DMPvuNt7FQJMszHUdG8Fkt6xHsqngH");
+    api = new ApiClient(
+    	"https://demo.retailcrm.ru",
+    	"T9DMPvuNt7FQJMszHUdG8Fkt6xHsqngH"
+    );
 }
 catch (WebException e)
 {
     System.Console.WriteLine(e.ToString());
 }
+
+ApiResponse response = null;
+try
+{
+    response = api.ordersGet("M-2342");
+}
+catch (WebException e)
+{
+    System.Console.WriteLine(e.ToString());
+}
+
+if (response.isSuccessful()) {
+	System.Console.WriteLine(response["totalSumm"]);
+} else {
+	System.Console.WriteLine(
+		"Ошибка получения информации о заказа: [Статус HTTP-ответа " +
+		response["statusCosde"] + "] " +
+		response["errorMsg"]
+	);
+}
+
 ```
-Constructor arguments are:
-
-1. Your RetailCRM acount URL-address
-2. Your site API Token
-
-### Example: get order types list
+### Создание заказа
 
 ``` csharp
 using RetailCrm;
@@ -100,10 +119,14 @@ catch (WebException e)
 }
 
 if (response.isSuccessful() && 201 == response["statusCosde"]) {
-	System.Console.WriteLine("Заказ успешно создан. ID заказа в retailCRM = " + response["id"]);
+	System.Console.WriteLine(
+		"Заказ успешно создан. ID заказа в retailCRM = " + response["id"]
+	);
 } else {
 	System.Console.WriteLine(
-		"Ошибка создания заказа: [Статус HTTP-ответа " + response["statusCosde"] + "] " + response["errorMsg"]
+		"Ошибка создания заказа: [Статус HTTP-ответа " +
+		response["statusCosde"] + "] " +
+		response["errorMsg"]
 	);
 }
 

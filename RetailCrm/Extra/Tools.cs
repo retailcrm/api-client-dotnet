@@ -70,15 +70,14 @@ namespace RetailCrm.Extra
                 if (valueObj.GetType() == typeof(JArray))
                 {
                     string tmpValue = JsonConvert.SerializeObject(((JArray)valueObj).ToArray<dynamic>());
-                    value = tmpValue.Replace("[", "{");
-                    value = value.Replace("]", "}");
+                    char[] charsToTrim = { '[', ' ', ']'};
+                    value = tmpValue.Trim(charsToTrim);
                 }
                 else
                 {
                     value = valueObj.ToString();
                 }
-                System.Console.WriteLine(value);
-                System.Console.ReadLine();
+
                 if (value != "")
                 {
                     if (valueObj.GetType() == typeof(JObject) || valueObj.GetType() == typeof(JArray))

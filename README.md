@@ -15,11 +15,17 @@ Usage
 
 ``` csharp
 using RetailCrm;
+using RetailCrm.Response;
 ...
-RestApi api = new RestApi(
-    "https://demo.intarocrm.ru",
-    "T9DMPvuNt7FQJMszHUdG8Fkt6xHsqngH"
-);
+ApiClient api;
+try
+{
+    api = new ApiClient("https://demo.retailcrm.ru", "T9DMPvuNt7FQJMszHUdG8Fkt6xHsqngH");
+}
+catch (WebException e)
+{
+    System.Console.WriteLine(e.ToString());
+}
 ```
 Constructor arguments are:
 
@@ -29,7 +35,9 @@ Constructor arguments are:
 ### Example: get order types list
 
 ``` csharp
-
+using RetailCrm;
+using RetailCrm.Response;
+...
 ApiClient api;
 string url, key;
 try
@@ -47,7 +55,7 @@ Dictionary<string, object> tmpOrder = new Dictionary<string, object>(){
                 {"createdAt", DateTime.Now.ToString("Y-m-d H:i:s")},
                 {"discount", 50},
                 {"phone", "89263832233"},
-                {"email", "vshirokov@gmail.com"},
+                {"email", "example@gmail.com"},
                 {"customerComment", "example"},
                 {"customFields", new Dictionary<string, object>(){
                                      {"reciever_phone", "example"},
@@ -94,7 +102,9 @@ catch (WebException e)
 if (response.isSuccessful() && 201 == response["statusCosde"]) {
 	System.Console.WriteLine("Заказ успешно создан. ID заказа в retailCRM = " + response["id"]);
 } else {
-	System.Console.WriteLine("Ошибка создания заказа: [Статус HTTP-ответа " + response["statusCosde"] + "] " + response["errorMsg"]);
+	System.Console.WriteLine(
+		"Ошибка создания заказа: [Статус HTTP-ответа " + response["statusCosde"] + "] " + response["errorMsg"]
+	);
 }
 
 ```

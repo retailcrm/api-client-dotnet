@@ -167,11 +167,11 @@ namespace RetailCrm
 
             if (startDate != null)
             {
-                parameters.Add("startDate", startDate.Value.ToString("Y-m-d H:i:s"));
+                parameters.Add("startDate", startDate.Value.ToString("yyy-MM-dd HH:mm:ss"));
             }
             if (endDate != null)
             {
-                parameters.Add("endDate", endDate.Value.ToString("Y-m-d H:i:s"));
+                parameters.Add("endDate", endDate.Value.ToString("yyy-MM-dd HH:mm:ss"));
             }
             if (limit > 0)
             {

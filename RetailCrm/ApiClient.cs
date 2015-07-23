@@ -55,8 +55,8 @@ namespace RetailCrm
                        "/orders/create",
                        Client.METHOD_POST,
                        this.fillSite(
-                           site, 
-                           new Dictionary<string, object>() { 
+                           site,
+                           new Dictionary<string, object>() {
                                { "order", JsonConvert.SerializeObject(order) }
                            }
                        )
@@ -90,7 +90,7 @@ namespace RetailCrm
                        Client.METHOD_POST,
                        this.fillSite(
                            site,
-                           new Dictionary<string, object>() { 
+                           new Dictionary<string, object>() {
                                { "order", JsonConvert.SerializeObject(order) },
                                { "by", by }
                            }
@@ -116,7 +116,7 @@ namespace RetailCrm
                        Client.METHOD_POST,
                        this.fillSite(
                            site,
-                           new Dictionary<string, object>() { 
+                           new Dictionary<string, object>() {
                                { "orders", JsonConvert.SerializeObject(orders) }
                            }
                        )
@@ -277,7 +277,7 @@ namespace RetailCrm
                        Client.METHOD_POST,
                        this.fillSite(
                            site,
-                           new Dictionary<string, object>() { 
+                           new Dictionary<string, object>() {
                                { "customer", JsonConvert.SerializeObject(customer) }
                            }
                        )
@@ -311,7 +311,7 @@ namespace RetailCrm
                        Client.METHOD_POST,
                        this.fillSite(
                            site,
-                           new Dictionary<string, object>() { 
+                           new Dictionary<string, object>() {
                                { "customer", JsonConvert.SerializeObject(customer) },
                                { "by", by }
                            }
@@ -337,7 +337,7 @@ namespace RetailCrm
                        Client.METHOD_POST,
                        this.fillSite(
                            site,
-                           new Dictionary<string, object>() { 
+                           new Dictionary<string, object>() {
                                { "customers", JsonConvert.SerializeObject(customers) }
                            }
                        )
@@ -411,6 +411,175 @@ namespace RetailCrm
                        new Dictionary<string, object>() {
                            { "customers", JsonConvert.SerializeObject(ids) }
                        }
+                   );
+        }
+
+        /// <summary>
+        /// Returns filtered orders packs list
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
+        /// <returns>ApiResponse</returns>
+        public ApiResponse packsList(Dictionary<string, object> filter = null, int page = 0, int limit = 0)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+
+            if (filter.Count > 0)
+            {
+                parameters.Add("filter", filter);
+            }
+            if (page > 0)
+            {
+                parameters.Add("page", page);
+            }
+            if (limit > 0)
+            {
+                parameters.Add("limit", limit);
+            }
+
+            return client.makeRequest("/orders/packs", Client.METHOD_GET, parameters);
+        }
+
+        /// <summary>
+        /// Create a order pack
+        /// </summary>
+        /// <param name="pack"></param>
+        /// <returns>ApiResponse</returns>
+        public ApiResponse packsCreate(Dictionary<string, object> pack)
+        {
+            if (pack.Count < 1)
+            {
+                throw new ArgumentException("Parameter `pack` must contains a data");
+            }
+
+            return client.makeRequest(
+                       "/orders/packs/create",
+                       Client.METHOD_POST,
+                       new Dictionary<string, object>() {
+                               { "pack", JsonConvert.SerializeObject(pack) }
+                       }
+                   );
+        }
+
+        /// <summary>
+        /// Returns a orders history
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
+        /// <returns>ApiResponse</returns>
+        public ApiResponse packsHistory(Dictionary<string, object> filter = null, int page = 0, int limit = 0)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+
+            if (filter.Count > 0)
+            {
+                parameters.Add("filter", filter);
+            }
+            if (page > 0)
+            {
+                parameters.Add("page", page);
+            }
+            if (limit > 0)
+            {
+                parameters.Add("limit", limit);
+            }
+
+            return client.makeRequest("/orders/packs/history", Client.METHOD_GET, parameters);
+        }
+
+        /// <summary>
+        /// Get order packs by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>ApiResponse</returns>
+        public ApiResponse packsGet(string id)
+        {
+            return client.makeRequest("/orders/packs/" + id, Client.METHOD_GET);
+        }
+
+        /// <summary>
+        /// Delete order packs by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>ApiResponse</returns>
+        public ApiResponse packsDelete(string id)
+        {
+            return client.makeRequest("/orders/packs/" + id + "/delete", Client.METHOD_POST);
+        }
+
+        /// <summary>
+        /// Edit a order packs
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="pack"></param>
+        /// <returns>ApiResponse</returns>
+        public ApiResponse packsEdit(string id, Dictionary<string, object> pack)
+        {
+            if (pack.Count < 1)
+            {
+                throw new ArgumentException("Parameter `pack` must contains a data");
+            }
+
+            return client.makeRequest(
+                       "/orders/packs/" + id + "/edit",
+                       Client.METHOD_POST,
+                       new Dictionary<string, object>() {
+                           { "pack", JsonConvert.SerializeObject(pack) }
+                       }
+                   );
+        }
+
+        /// <summary>
+        /// Returns filtered store inventories list
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
+        /// <returns>ApiResponse</returns>
+        public ApiResponse inventoriesList(Dictionary<string, object> filter = null, int page = 0, int limit = 0)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+
+            if (filter.Count > 0)
+            {
+                parameters.Add("filter", filter);
+            }
+            if (page > 0)
+            {
+                parameters.Add("page", page);
+            }
+            if (limit > 0)
+            {
+                parameters.Add("limit", limit);
+            }
+
+            return client.makeRequest("/store/inventories", Client.METHOD_GET, parameters);
+        }
+
+        /// <summary>
+        /// Upload array of the store inventories
+        /// </summary>
+        /// <param name="offers"></param>
+        /// <param name="site"></param>
+        /// <returns>ApiResponse</returns>
+        public ApiResponse inventoriesUpload(Dictionary<string, object> offers, string site = "")
+        {
+            if (offers.Count < 1)
+            {
+                throw new ArgumentException("Parameter `offers` must contains a data");
+            }
+
+            return client.makeRequest(
+                       "/store/inventories/upload",
+                       Client.METHOD_POST,
+                       this.fillSite(
+                           site,
+                           new Dictionary<string, object>() {
+                               { "offers", JsonConvert.SerializeObject(offers) }
+                           }
+                       )
                    );
         }
 
@@ -505,6 +674,15 @@ namespace RetailCrm
         }
 
         /// <summary>
+        /// Returns stores list
+        /// </summary>
+        /// <returns>ApiResponse</returns>
+        public ApiResponse storesList()
+        {
+            return client.makeRequest("/reference/stores", Client.METHOD_GET);
+        }
+
+        /// <summary>
         /// Edit deliveryService
         /// </summary>
         /// <param name="data"></param>
@@ -519,7 +697,7 @@ namespace RetailCrm
             return client.makeRequest(
                        "/reference/delivery-services/" + data["code"] + "/edit",
                        Client.METHOD_POST,
-                       new Dictionary<string, object>() { 
+                       new Dictionary<string, object>() {
                            { "deliveryService", JsonConvert.SerializeObject(data) }
                        }
                    );
@@ -540,7 +718,7 @@ namespace RetailCrm
             return client.makeRequest(
                        "/reference/delivery-types/" + data["code"] + "/edit",
                        Client.METHOD_POST,
-                       new Dictionary<string, object>() { 
+                       new Dictionary<string, object>() {
                            { "deliveryType", JsonConvert.SerializeObject(data) }
                        }
                    );
@@ -561,7 +739,7 @@ namespace RetailCrm
             return client.makeRequest(
                        "/reference/order-methods/" + data["code"] + "/edit",
                        Client.METHOD_POST,
-                       new Dictionary<string, object>() { 
+                       new Dictionary<string, object>() {
                            { "orderMethod", JsonConvert.SerializeObject(data) }
                        }
                    );
@@ -582,7 +760,7 @@ namespace RetailCrm
             return client.makeRequest(
                        "/reference/order-types/" + data["code"] + "/edit",
                        Client.METHOD_POST,
-                       new Dictionary<string, object>() { 
+                       new Dictionary<string, object>() {
                            { "orderType", JsonConvert.SerializeObject(data) }
                        }
                    );
@@ -603,7 +781,7 @@ namespace RetailCrm
             return client.makeRequest(
                        "/reference/payment-statuses/" + data["code"] + "/edit",
                        Client.METHOD_POST,
-                       new Dictionary<string, object>() { 
+                       new Dictionary<string, object>() {
                            { "paymentStatus", JsonConvert.SerializeObject(data) }
                        }
                    );
@@ -624,7 +802,7 @@ namespace RetailCrm
             return client.makeRequest(
                        "/reference/payment-types/" + data["code"] + "/edit",
                        Client.METHOD_POST,
-                       new Dictionary<string, object>() { 
+                       new Dictionary<string, object>() {
                            { "paymentType", JsonConvert.SerializeObject(data) }
                        }
                    );
@@ -645,7 +823,7 @@ namespace RetailCrm
             return client.makeRequest(
                        "/reference/product-statuses/" + data["code"] + "/edit",
                        Client.METHOD_POST,
-                       new Dictionary<string, object>() { 
+                       new Dictionary<string, object>() {
                            { "productStatus", JsonConvert.SerializeObject(data) }
                        }
                    );
@@ -666,7 +844,7 @@ namespace RetailCrm
             return client.makeRequest(
                        "/reference/statuses/" + data["code"] + "/edit",
                        Client.METHOD_POST,
-                       new Dictionary<string, object>() { 
+                       new Dictionary<string, object>() {
                            { "status", JsonConvert.SerializeObject(data) }
                        }
                    );
@@ -687,8 +865,29 @@ namespace RetailCrm
             return client.makeRequest(
                        "/reference/sites/" + data["code"] + "/edit",
                        Client.METHOD_POST,
-                       new Dictionary<string, object>() { 
+                       new Dictionary<string, object>() {
                            { "site", JsonConvert.SerializeObject(data) }
+                       }
+                   );
+        }
+
+        /// <summary>
+        /// Edit stores
+        /// </summary>
+        /// <param name="store"></param>
+        /// <returns>ApiResponse</returns>
+        public ApiResponse storesEdit(Dictionary<string, object> store)
+        {
+            if (store.ContainsKey("code") == false)
+            {
+                throw new ArgumentException("Data must contain \"code\" parameter");
+            }
+
+            return client.makeRequest(
+                       "/reference/stores/" + store["code"] + "/edit",
+                       Client.METHOD_POST,
+                       new Dictionary<string, object>() {
+                           { "store", JsonConvert.SerializeObject(store) }
                        }
                    );
         }
@@ -725,7 +924,7 @@ namespace RetailCrm
         /// <param name="by"></param>
         protected void checkIdParameter(string by)
         {
-            string[] allowedForBy = new string[]{"externalId", "id"};
+            string[] allowedForBy = new string[] { "externalId", "id" };
             if (allowedForBy.Contains(by) == false)
             {
                 throw new ArgumentException("Value \"" + by + "\" for parameter \"by\" is not valid. Allowed values are " + String.Join(", ", allowedForBy));
@@ -743,7 +942,7 @@ namespace RetailCrm
             if (site.Length > 1)
             {
                 param.Add("site", site);
-            } 
+            }
             else if (siteCode.Length > 1)
             {
                 param.Add("site", siteCode);

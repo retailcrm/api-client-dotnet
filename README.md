@@ -2,11 +2,22 @@
 =============================
 
 .NET-клиент для работы с [RetailCRM API](http://www.retailcrm.ru/docs/rest-api/index.html).
-version: 3.0.0
+
+version: 3.0.2
 
 Обязательные требования
 -----------------------
 * [Newtonsoft.Json](http://james.newtonking.com/json)
+
+Установка через NuGet
+---------------------
+
+Для начала требуется скачать и установить сам [NuGet](http://docs.nuget.org/consume/installing-nuget).
+
+После этого для установки клиента требуется запустить комманду в [Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console)
+``` bash
+PM> Install-Package RetailCRM.ApiClient
+```
 
 Примеры использования
 ---------------------

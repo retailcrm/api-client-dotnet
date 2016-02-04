@@ -4,8 +4,6 @@ using RetailCrm.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RetailCrm
 {
@@ -683,6 +681,15 @@ namespace RetailCrm
         }
 
         /// <summary>
+        /// Returns countries list
+        /// </summary>
+        /// <returns>ApiResponse</returns>
+        public ApiResponse countriesList()
+        {
+            return client.makeRequest("/reference/countries", Client.METHOD_GET);
+        }
+
+        /// <summary>
         /// Edit deliveryService
         /// </summary>
         /// <param name="data"></param>
@@ -890,6 +897,118 @@ namespace RetailCrm
                            { "store", JsonConvert.SerializeObject(store) }
                        }
                    );
+        }
+
+        /// <summary>
+        /// Captures events call for the user
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <param name="type"></param>
+        /// <param name="code"></param>
+        /// <param name="hangupStatus"></param>
+        /// <returns>ApiResponse</returns>
+        public ApiResponse telephonyСallEventCreate(string phone, string type, string code, string hangupStatus)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+
+            if (string.IsNullOrEmpty(phone))
+            {
+                throw new ArgumentException("Parameter \"phone\" can not be empty");
+            }
+
+            if (string.IsNullOrEmpty(type))
+            {
+                throw new ArgumentException("Option \"type\" can not be empty. Valid values: in, out, hangup.");
+            }
+
+            if (string.IsNullOrEmpty(code))
+            {
+                throw new ArgumentException("Option \"code\" can not be empty.");
+            }
+
+            parameters.Add("phone", phone);
+            parameters.Add("type", type);
+            parameters.Add("code", code);
+
+            if (!string.IsNullOrEmpty(hangupStatus))
+            {
+                parameters.Add("hangupStatus", hangupStatus);
+            }
+
+            return client.makeRequest("/telephony/call/event", Client.METHOD_POST, parameters);
+        }
+
+        /// <summary>
+        /// It allows you to save your call history
+        /// </summary>
+        /// <param name="calls"></param>
+        /// <returns>ApiResponse</returns>
+        public ApiResponse telephonyСallsUpload(Dictionary<string, object> calls)
+        {
+            return client.makeRequest(
+                       "/telephony/calls/upload",
+                       Client.METHOD_POST,
+                       new Dictionary<string, object>() {
+                           { "calls", JsonConvert.SerializeObject(calls) }
+                       }
+                   );
+        }
+
+        /// <summary>
+        /// Returns the responsible manager for the client with the phone
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <param name="details"></param>
+        /// <returns>ApiResponse</returns>
+        public ApiResponse telephonyManagerGet(string phone, bool details = false)
+        {
+            if (string.IsNullOrEmpty(phone))
+            {
+                throw new ArgumentException("Parameter \"phone\" can not be empty");
+            }
+
+            return client.makeRequest(
+                       "/telephony/manager",
+                       Client.METHOD_GET,
+                       new Dictionary<string, object>() {
+                           { "phone", phone },
+                           { "details", details }
+                       }
+                   );
+        }
+
+        /// <summary>
+        /// Allows you to create/activate/deactivate the phone in the system and specify the necessary settings for the job
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="clientId"></param>
+        /// <param name="makeCallUrl"></param>
+        /// <param name="active"></param>
+        /// <returns>ApiResponse</returns>
+        public ApiResponse telephonySettingEdit(string code, string clientId, string makeCallUrl, bool active = true)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+
+            if (string.IsNullOrEmpty(code))
+            {
+                throw new ArgumentException("Parameter \"code\" can not be empty");
+            }
+
+            if (string.IsNullOrEmpty(clientId))
+            {
+                throw new ArgumentException("Option \"clientId\" can not be empty.");
+            }
+
+            parameters.Add("code", code);
+            parameters.Add("clientId", clientId);
+            parameters.Add("active", active);
+
+            if (!string.IsNullOrEmpty(makeCallUrl))
+            {
+                parameters.Add("makeCallUrl", makeCallUrl);
+            }
+
+            return client.makeRequest("/telephony/setting/" + code, Client.METHOD_POST, parameters);
         }
 
         /// <summary>

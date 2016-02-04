@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RetailCrm.Extra
 {
@@ -61,30 +57,38 @@ namespace RetailCrm.Extra
             Dictionary<string, object> result = new Dictionary<string, object>();
             foreach (KeyValuePair<string, object> kvp in data)
             {
-                System.Console.WriteLine(kvp.Key.ToString());
-                System.Console.WriteLine(kvp.Value.ToString());
-                System.Console.ReadLine();
                 object valueObj = kvp.Value;
                 string value = String.Empty;
 
-                if (valueObj.GetType() == typeof(JArray))
-                {
-                    string tmpValue = JsonConvert.SerializeObject(((JArray)valueObj).ToArray<dynamic>());
-                    char[] charsToTrim = { '[', ' ', ']'};
-                    value = tmpValue.Trim(charsToTrim);
-                }
-                else
-                {
-                    value = valueObj.ToString();
-                }
+                value = valueObj.ToString();
 
                 if (value != "")
                 {
-                    if (valueObj.GetType() == typeof(JObject) || valueObj.GetType() == typeof(JArray))
+                    if (valueObj.GetType() == typeof(JObject))
                     {
                         valueObj = jsonObjectToDictionary((Dictionary<string, object>)JsonConvert.DeserializeObject<Dictionary<string, object>>(value));
+                        result.Add(kvp.Key.ToString(), valueObj);
                     }
-                    result.Add(kvp.Key.ToString(), valueObj);
+                    else if (valueObj.GetType() == typeof(JArray))
+                    {
+                        var items = new List<object>();
+
+                        dynamic dynamicObject = JsonConvert.DeserializeObject(value);
+                        Dictionary<string, object> newObject = new Dictionary<string, object>();
+
+                        int j = 0;
+                        foreach (var item in dynamicObject)
+                        {
+                            newObject.Add(j.ToString(), jsonObjectToDictionary(item.ToObject<Dictionary<string, object>>()));
+                            j++;
+                        }
+
+                        result.Add(kvp.Key.ToString(), newObject);
+                    }
+                    else
+                    {
+                        result.Add(kvp.Key.ToString(), valueObj);
+                    }
                 }
             }
             return result;

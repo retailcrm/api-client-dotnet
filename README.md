@@ -3,7 +3,7 @@
 
 .NET-клиент для работы с [RetailCRM API](http://www.retailcrm.ru/docs/rest-api/index.html).
 
-version: 3.0.2
+version: 3.0.4
 
 Обязательные требования
 -----------------------
@@ -82,7 +82,7 @@ catch (WebException e)
 Dictionary<string, object> tmpOrder = new Dictionary<string, object>(){
                 {"number", "example"},
                 {"externalId", "example"},
-                {"createdAt", DateTime.Now.ToString("Y-m-d H:i:s")},
+                {"createdAt", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},
                 {"discount", 50},
                 {"phone", "89263832233"},
                 {"email", "example@gmail.com"},

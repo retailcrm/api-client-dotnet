@@ -1,9 +1,7 @@
-.NET-клиент для retailCRM API
+.NET client for retailCRM API
 =============================
 
-.NET-клиент для работы с [RetailCRM API](http://www.retailcrm.pro/docs/Developers/ApiVersion3).
-
-version: 3.0.4
+.NET client for [RetailCRM API](http://www.retailcrm.pro/docs/Developers/ApiVersion3).
 
 Requirements
 -----------------------

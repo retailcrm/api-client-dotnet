@@ -3,8 +3,6 @@
 
 .NET-клиент для работы с [RetailCRM API](http://www.retailcrm.ru/docs/rest-api/index.html).
 
-version: 3.0.4
-
 Обязательные требования
 -----------------------
 * [Newtonsoft.Json](http://james.newtonking.com/json)
@@ -112,7 +110,7 @@ Dictionary<string, object> tmpOrder = new Dictionary<string, object>(){
                                  {"code", "courier"},
                                  {"date", DateTime.Now.ToString("Y-m-d")},
                                  {"address", new Dictionary<string, object>(){
-                                                 {"text", "exampleing"}
+                                                 {"text", "example"}
                                              }
                                  }
                              }

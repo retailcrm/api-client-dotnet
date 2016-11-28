@@ -54,7 +54,7 @@ if (response.isSuccessful()) {
 } else {
 	System.Console.WriteLine(
 		"Error: [HTTP-code  " +
-		response["statusCosde"] + "] " +
+		response["statusCode"] + "] " +
 		response["errorMsg"]
 	);
 }
@@ -127,7 +127,7 @@ catch (WebException e)
     System.Console.WriteLine(e.ToString());
 }
 
-if (response.isSuccessful() && 201 == response["statusCosde"]) {
+if (response.isSuccessful() && 201 == response["statusCode"]) {
 	System.Console.WriteLine(
 		"Order created. Order ID is " + response["id"]
 	);

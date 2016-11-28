@@ -54,7 +54,7 @@ if (response.isSuccessful()) {
 } else {
 	System.Console.WriteLine(
 		"Ошибка получения информации о заказа: [Статус HTTP-ответа " +
-		response["statusCosde"] + "] " +
+		response["statusCode"] + "] " +
 		response["errorMsg"]
 	);
 }
@@ -127,14 +127,14 @@ catch (WebException e)
     System.Console.WriteLine(e.ToString());
 }
 
-if (response.isSuccessful() && 201 == response["statusCosde"]) {
+if (response.isSuccessful() && 201 == response["statusCode"]) {
 	System.Console.WriteLine(
 		"Заказ успешно создан. ID заказа в retailCRM = " + response["id"]
 	);
 } else {
 	System.Console.WriteLine(
 		"Ошибка создания заказа: [Статус HTTP-ответа " +
-		response["statusCosde"] + "] " +
+		response["statusCode"] + "] " +
 		response["errorMsg"]
 	);
 }

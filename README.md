@@ -1,142 +1,73 @@
-.NET client for retailCRM API
-=============================
+.NET-клиент RetailCRM API
+=========================
 
-.NET client for [RetailCRM API](http://www.retailcrm.pro/docs/Developers/ApiVersion3).
+.NET-клиент для работы с [RetailCRM API](http://www.retailcrm.ru/docs/Developers/Index). Клиент поддерживает все доступные на текущий момент версии API (v3-v5).
 
-Requirements
------------------------
-* [Newtonsoft.Json](http://james.newtonking.com/json)
-
-Install with NuGet
+Установка через NuGet
 ---------------------
 
-Install [NuGet](http://docs.nuget.org/consume/installing-nuget).
-
-Run this command into [Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console)
 ``` bash
-PM> Install-Package RetailCRM.ApiClient
+PM> Install-Package Retailcrm.SDK
 ```
 
-Usage
+Примеры использования
 ---------------------
 
-### Get order
+### Получение информации о заказе
 
 ``` csharp
-using RetailCrm;
-using RetailCrm.Response;
+using System.Diagnostics;
+using Retailcrm;
+using Retailcrm.Versions.V5;
 ...
-ApiClient api;
-try
-{
-    api = new ApiClient(
-    	"https://demo.retailcrm.pro",
-    	"T9DMPvuNt7FQJMszHUdG8Fkt6xHsqngH"
-    );
-}
-catch (WebException e)
-{
-    System.Console.WriteLine(e.ToString());
-}
 
-ApiResponse response = null;
-try
-{
-    response = api.ordersGet("M-2342");
-}
-catch (WebException e)
-{
-    System.Console.WriteLine(e.ToString());
-}
+Client api = new Client("https://demo.retailcrm.ru", "T9DMPvuNt7FQJMszHUdG8Fkt6xHsqngH");
+Response response = api.OrdersGet("12345", "externalId");
 
 if (response.isSuccessful()) {
-	System.Console.WriteLine(response["totalSumm"]);
+    Debug.WriteLine(Response.GetRawResponse());
 } else {
-	System.Console.WriteLine(
-		"Error: [HTTP-code  " +
-		response["statusCode"] + "] " +
-		response["errorMsg"]
-	);
+    Debug.WriteLine($"Ошибка: [Статус HTTP-ответа {response.GetStatusCode().ToString()}]");
 }
 
 ```
-### Create order
+### Создание заказа
 
 ``` csharp
-using RetailCrm;
-using RetailCrm.Response;
+using System.Diagnostics;
+using Retailcrm;
+using Retailcrm.Versions.V4;
 ...
-ApiClient api;
-string url, key;
-try
-{
-    api = new ApiClient(url, key);
-}
-catch (WebException e)
-{
-    System.Console.WriteLine(e.ToString());
-}
 
-Dictionary<string, object> tmpOrder = new Dictionary<string, object>(){
-                {"number", "example"},
-                {"externalId", "example"},
-                {"createdAt", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},
-                {"discount", 50},
-                {"phone", "89263832233"},
-                {"email", "example@gmail.com"},
-                {"customerComment", "example"},
-                {"customFields", new Dictionary<string, object>(){
-                                     {"reciever_phone", "example"},
-                                     {"reciever_name", "example"},
-                                     {"ext_number", "example"}
-                                 }
-                },
-                {"contragentType", "individual"},
-                {"orderType", "eshop-individual"},
-                {"orderMethod", "app"},
-                {"customerId", "555"},
-                {"managerId", 8},
-                {"items", new Dictionary<string, object>(){
-                              {"0", new Dictionary<string, object>(){
-                                        {"initialPrice", 100},
-                                        {"quantity", 1},
-                                        {"productId", 55},
-                                        {"productName", "example"}
-                                    }
-                              }
-                          }
-                },
-                {"delivery", new Dictionary<string, object>(){
-                                 {"code", "courier"},
-                                 {"date", DateTime.Now.ToString("Y-m-d")},
-                                 {"address", new Dictionary<string, object>(){
-                                                 {"text", "example"}
-                                             }
-                                 }
-                             }
-                }
-            };
-
-ApiResponse response = null;
-try
+Client api = new Client("https://demo.retailcrm.ru", "T9DMPvuNt7FQJMszHUdG8Fkt6xHsqngH");
+Response response = api.OrdersCreate(new Dictionary<string, object>
 {
-    response = api.ordersEdit(order);
-}
-catch (WebException e)
-{
-    System.Console.WriteLine(e.ToString());
-}
+    {"externalId", "12345"},
+    {"createdAt", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")},
+    {"lastName", "Doe"},
+    {"firstName", "John"},
+    {"email", "john@example.com"},
+    {"phone", "+79999999999"},
+    {"items", new List<object> {
+        new Dictionary<string, object> {
+            {"initialPrice", 100},
+            {"quantity", 1},
+            {"productId", 55},
+            {"productName", "example"}
+        },
+        new Dictionary<string, object> {
+            {"initialPrice", 200},
+            {"quantity", 2},
+            {"productId", 14},
+            {"productName", "example too"}
+        }
+    }}
+});
 
-if (response.isSuccessful() && 201 == response["statusCode"]) {
-	System.Console.WriteLine(
-		"Order created. Order ID is " + response["id"]
-	);
+if (response.isSuccessful()) {
+    Debug.WriteLine(Response.GetResponse()["externalId"].ToString());
 } else {
-	System.Console.WriteLine(
-		"Error: [HTTP-code " +
-		response["statusCode"] + "] " +
-		response["errorMsg"]
-	);
+    Debug.WriteLine($"Ошибка: [Статус HTTP-ответа {response.GetStatusCode().ToString()}]");
 }
 
 ```

@@ -65,7 +65,7 @@ namespace Retailcrm.Versions.V5
             }
 
             return Request.MakeRequest(
-                $"/reference/cost-groups/{group["code"].ToString()}/edit",
+                $"/reference/cost-groups/{@group["code"]}/edit",
                 Request.MethodPost,
                 new Dictionary<string, object>
                 {
@@ -108,7 +108,7 @@ namespace Retailcrm.Versions.V5
             }
 
             return Request.MakeRequest(
-                $"/reference/cost-items/{item["code"].ToString()}/edit",
+                $"/reference/cost-items/{item["code"]}/edit",
                 Request.MethodPost,
                 new Dictionary<string, object>
                 {
@@ -145,11 +145,48 @@ namespace Retailcrm.Versions.V5
             }
 
             return Request.MakeRequest(
-                $"/reference/legal-entities/{entity["code"].ToString()}/edit",
+                $"/reference/legal-entities/{entity["code"]}/edit",
                 Request.MethodPost,
                 new Dictionary<string, object>
                 {
                     { "legalEntity", new JavaScriptSerializer().Serialize(entity) }
+                }
+            );
+        }
+
+        public Response Couriers()
+        {
+            return Request.MakeRequest(
+                "/reference/couriers",
+                Request.MethodGet
+            );
+        }
+
+        public Response CouriersCreate(Dictionary<string, object> courier)
+        {
+            return Request.MakeRequest(
+                "/reference/couriers/create",
+                Request.MethodPost,
+                new Dictionary<string, object>
+                {
+                    { "courier", new JavaScriptSerializer().Serialize(courier) }
+                }
+            );
+        }
+
+        public Response CouriersEdit(Dictionary<string, object> courier)
+        {
+            if (!courier.ContainsKey("id"))
+            {
+                throw new ArgumentException("Parameter `id` is missing");
+            }
+
+            return Request.MakeRequest(
+                $"/reference/couriers/{courier["id"]}/edit",
+                Request.MethodPost,
+                new Dictionary<string, object>
+                {
+                    { "courier", new JavaScriptSerializer().Serialize(courier) }
                 }
             );
         }

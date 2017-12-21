@@ -129,5 +129,80 @@ namespace RetailcrmUnitTest.V5
             Assert.IsInstanceOfType(response, typeof(Response));
             Assert.IsTrue(response.GetResponse().ContainsKey("success"));
         }
+
+        [TestMethod]
+        public void Couriers()
+        {
+            Response response = _client.Couriers();
+            Assert.IsTrue(response.IsSuccessfull());
+            Assert.IsTrue(response.GetStatusCode() == 200);
+            Assert.IsInstanceOfType(response, typeof(Response));
+            Assert.IsTrue(response.GetResponse().ContainsKey("couriers"));
+        }
+
+        [TestMethod]
+        public void CouriersCreate()
+        {
+            string guid = Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 3);
+
+            Response response = _client.CouriersCreate(
+                new Dictionary<string, object>
+                {
+                    { "firstName", $"CourierFirstName-{guid}"},
+                    { "lastName", $"CourierLastName-{guid}" },
+                    { "active", false},
+                    { "email", $"{guid}@example.com"}
+                }
+            );
+
+            Debug.WriteLine(response.GetRawResponse());
+
+            Assert.IsTrue(response.IsSuccessfull());
+            Assert.IsTrue(response.GetStatusCode() == 201);
+            Assert.IsInstanceOfType(response, typeof(Response));
+            Assert.IsTrue(response.GetResponse().ContainsKey("success"));
+        }
+
+        [TestMethod]
+        public void CouriersEdit()
+        {
+            string guid = Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 3);
+
+            Response response = _client.CouriersCreate(
+                new Dictionary<string, object>
+                {
+                    { "firstName", $"CourierFirstName-{guid}"},
+                    { "lastName", $"CourierLastName-{guid}" },
+                    { "active", false},
+                    { "email", $"{guid}@example.com"}
+                }
+            );
+
+            Debug.WriteLine(response.GetRawResponse());
+
+            Assert.IsTrue(response.IsSuccessfull());
+            Assert.IsTrue(response.GetStatusCode() == 201);
+            Assert.IsInstanceOfType(response, typeof(Response));
+            Assert.IsTrue(response.GetResponse().ContainsKey("success"));
+
+            string id = response.GetResponse()["id"].ToString();
+
+            Response responseEdit = _client.CouriersEdit(
+                new Dictionary<string, object>
+                {
+                    { "id", id},
+                    { "firstName", "CourierFirstName"},
+                    { "lastName", "CourierLastName" },
+                    { "active", true}
+                }
+            );
+
+            Debug.WriteLine(responseEdit.GetRawResponse());
+
+            Assert.IsTrue(responseEdit.IsSuccessfull());
+            Assert.IsTrue(responseEdit.GetStatusCode() == 200);
+            Assert.IsInstanceOfType(response, typeof(Response));
+            Assert.IsTrue(response.GetResponse().ContainsKey("success"));
+        }
     }
 }

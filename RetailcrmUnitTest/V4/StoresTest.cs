@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Retailcrm;
 using Retailcrm.Versions.V4;
@@ -10,7 +9,6 @@ namespace RetailcrmUnitTest.V4
     public class StoresTest
     {
         private readonly Client _client;
-        private readonly NameValueCollection _appSettings;
 
         public StoresTest()
         {

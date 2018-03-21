@@ -1,3 +1,4 @@
+![Visual Studio Team services](https://img.shields.io/vso/build/gwinn/f01d2ec1-f511-4908-8c02-d48757d71370/3.svg?style=flat-square
 [![NuGet](https://img.shields.io/nuget/v/Retailcrm.SDK.svg)](https://www.nuget.org/packages/Retailcrm.SDK/)
 
 

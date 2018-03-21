@@ -154,6 +154,10 @@ namespace Retailcrm.Versions.V5
             );
         }
 
+        /// <summary>
+        /// Couriers list
+        /// </summary>
+        /// <returns></returns>
         public Response Couriers()
         {
             return Request.MakeRequest(
@@ -162,6 +166,11 @@ namespace Retailcrm.Versions.V5
             );
         }
 
+        /// <summary>
+        /// Create a courier
+        /// </summary>
+        /// <param name="courier"></param>
+        /// <returns></returns>
         public Response CouriersCreate(Dictionary<string, object> courier)
         {
             return Request.MakeRequest(
@@ -174,6 +183,11 @@ namespace Retailcrm.Versions.V5
             );
         }
 
+        /// <summary>
+        /// Edit a courier
+        /// </summary>
+        /// <param name="courier"></param>
+        /// <returns></returns>
         public Response CouriersEdit(Dictionary<string, object> courier)
         {
             if (!courier.ContainsKey("id"))

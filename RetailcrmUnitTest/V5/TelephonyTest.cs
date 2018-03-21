@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Retailcrm.Versions.V5;
 
@@ -11,12 +9,13 @@ namespace RetailcrmUnitTest.V5
     public class TelephonyTest
     {
         private readonly Client _client;
-        private readonly NameValueCollection _appSettings;
 
         public TelephonyTest()
         {
-            _appSettings = ConfigurationManager.AppSettings;
-            _client = new Client(_appSettings["apiUrl"], _appSettings["apiKey"]);
+            _client = new Client(
+               Environment.GetEnvironmentVariable("RETAILCRM_URL"),
+               Environment.GetEnvironmentVariable("RETAILCRM_KEY")
+           );
         }
 
         [TestMethod]

@@ -13,12 +13,13 @@ namespace RetailcrmUnitTest.V5
     public class NotesTest
     {
         private readonly Client _client;
-        private readonly NameValueCollection _appSettings;
 
         public NotesTest()
         {
-            _appSettings = ConfigurationManager.AppSettings;
-            _client = new Client(_appSettings["apiUrl"], _appSettings["apiKey"]);
+            _client = new Client(
+               Environment.GetEnvironmentVariable("RETAILCRM_URL"),
+               Environment.GetEnvironmentVariable("RETAILCRM_KEY")
+           );
         }
 
         [TestMethod]
@@ -28,8 +29,8 @@ namespace RetailcrmUnitTest.V5
                 new Dictionary<string, object>
                 {
                     { "text", "test task" },
-                    { "customer", new Dictionary<string, object> { { "id", "2015" } }},
-                    { "managerId", _appSettings["manager"]}
+                    { "customer", new Dictionary<string, object> { { "id", "4717" } }},
+                    { "managerId", Environment.GetEnvironmentVariable("RETAILCRM_USER")}
                 }
             );
 

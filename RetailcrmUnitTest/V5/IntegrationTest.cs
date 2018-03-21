@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Retailcrm;
@@ -15,8 +14,10 @@ namespace RetailcrmUnitTest.V5
 
         public IntegrationTest()
         {
-            var appSettings = ConfigurationManager.AppSettings;
-            _client = new Client(appSettings["apiUrl"], appSettings["apiKey"]);
+            _client = new Client(
+               Environment.GetEnvironmentVariable("RETAILCRM_URL"),
+               Environment.GetEnvironmentVariable("RETAILCRM_KEY")
+           );
         }
 
         [TestMethod]
@@ -29,6 +30,7 @@ namespace RetailcrmUnitTest.V5
                 {
                     { "code", uid},
                     { "name", $"TestIntegration-{uid}"},
+                    { "clientId", uid},
                     { "active", true},
                     { "accountUrl", $"http://{uid}.example.com"},
                     { "logo", "https://www.ibm.com/cloud-computing/images/cloud/products/cloud-integration/api-economy-icon.svg"},

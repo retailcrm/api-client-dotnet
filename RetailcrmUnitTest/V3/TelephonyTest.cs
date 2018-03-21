@@ -1,5 +1,4 @@
-﻿using System.Collections.Specialized;
-using System.Configuration;
+﻿using System;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Retailcrm;
@@ -11,18 +10,19 @@ namespace RetailcrmUnitTest.V3
     public class TelephonyTest
     {
         private readonly Client _client;
-        private readonly NameValueCollection _appSettings;
-
+        
         public TelephonyTest()
         {
-            _appSettings = ConfigurationManager.AppSettings;
-            _client = new Client(_appSettings["apiUrl"], _appSettings["apiKey"]);
+            _client = new Client(
+                Environment.GetEnvironmentVariable("RETAILCRM_URL"),
+                Environment.GetEnvironmentVariable("RETAILCRM_KEY")
+            );
         }
 
         [TestMethod]
         public void TelephonyManagerGet()
         {
-            Response response = _client.TelephonyManagerGet(_appSettings["phone"]);
+            Response response = _client.TelephonyManagerGet("+79999999999");
             Debug.WriteLine(response.GetRawResponse());
             Assert.IsTrue(response.IsSuccessfull());
             Assert.IsTrue(response.GetStatusCode() == 200);

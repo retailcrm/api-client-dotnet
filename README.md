@@ -1,19 +1,19 @@
-.NET-клиент RetailCRM API
-=========================
+[![NuGet](https://img.shields.io/nuget/v/Retailcrm.SDK.svg)](https://www.nuget.org/packages/Retailcrm.SDK/)
 
-.NET-клиент для работы с [RetailCRM API](http://www.retailcrm.ru/docs/Developers/Index). Клиент поддерживает все доступные на текущий момент версии API (v3-v5).
 
-Установка через NuGet
----------------------
+# retailCRM API C# client
+
+This is C# retailCRM API client. This library allows to use all available API versions.
+
+## Install
 
 ``` bash
 PM> Install-Package Retailcrm.SDK
 ```
 
-Примеры использования
----------------------
+## Usage
 
-### Получение информации о заказе
+### Get order
 
 ``` csharp
 using System.Diagnostics;
@@ -31,7 +31,7 @@ if (response.isSuccessful()) {
 }
 
 ```
-### Создание заказа
+### Create order
 
 ``` csharp
 using System.Diagnostics;
@@ -71,3 +71,7 @@ if (response.isSuccessful()) {
 }
 
 ```
+### Documentation
+
+* [English](http://www.retailcrm.pro/docs/Developers/Index)
+* [Russian](http://www.retailcrm.ru/docs/Developers/Index)

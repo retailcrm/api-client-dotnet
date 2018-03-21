@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Retailcrm;
 using Retailcrm.Versions.V3;
@@ -12,12 +10,13 @@ namespace RetailcrmUnitTest.V3
     public class CustomersTest
     {
         private readonly Client _client;
-        private readonly NameValueCollection _appSettings;
 
         public CustomersTest()
         {
-            _appSettings = ConfigurationManager.AppSettings;
-            _client = new Client(_appSettings["apiUrl"], _appSettings["apiKey"]);
+            _client = new Client(
+                Environment.GetEnvironmentVariable("RETAILCRM_URL"),
+                Environment.GetEnvironmentVariable("RETAILCRM_KEY")
+            );
         }
 
         [TestMethod]
@@ -102,7 +101,7 @@ namespace RetailcrmUnitTest.V3
         [TestMethod]
         public void CustomersList()
         {
-            _client.SetSite(_appSettings["site"]);
+            _client.SetSite(Environment.GetEnvironmentVariable("RETAILCRM_SITE"));
 
             Response response = _client.CustomersList();
 

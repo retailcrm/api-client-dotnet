@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Specialized;
-using System.Configuration;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -13,12 +11,13 @@ namespace RetailcrmUnitTest.V5
     public class TasksTest
     {
         private readonly Client _client;
-        private readonly NameValueCollection _appSettings;
 
         public TasksTest()
         {
-            _appSettings = ConfigurationManager.AppSettings;
-            _client = new Client(_appSettings["apiUrl"], _appSettings["apiKey"]);
+            _client = new Client(
+               Environment.GetEnvironmentVariable("RETAILCRM_URL"),
+               Environment.GetEnvironmentVariable("RETAILCRM_KEY")
+           );
         }
 
         [TestMethod]
@@ -32,7 +31,7 @@ namespace RetailcrmUnitTest.V5
                     { "text", "test task" },
                     { "commentary", "test commentary"},
                     { "datetime", datetime.AddHours(+3).ToString("yyyy-MM-dd HH:mm")},
-                    { "performerId", _appSettings["manager"]}
+                    { "performerId", Environment.GetEnvironmentVariable("RETAILCRM_USER")}
                 }
             );
 
@@ -49,7 +48,7 @@ namespace RetailcrmUnitTest.V5
                     { "text", "test task edited" },
                     { "commentary", "test commentary"},
                     { "datetime", datetime.AddHours(+4).ToString("yyyy-MM-dd HH:mm")},
-                    { "performerId", _appSettings["manager"]}
+                    { "performerId", Environment.GetEnvironmentVariable("RETAILCRM_USER")}
                 }
             );
 
@@ -74,7 +73,7 @@ namespace RetailcrmUnitTest.V5
             Response responseFiltered = _client.TasksList(
                 new Dictionary<string, object>
                 {
-                    { "performers", new List<string> { _appSettings["manager"] } },
+                    { "performers", new List<string> { Environment.GetEnvironmentVariable("RETAILCRM_USER") } },
                     { "status", "performing" }
                 },
                 2,

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Retailcrm;
@@ -13,12 +11,13 @@ namespace RetailcrmUnitTest.V3
     public class StoresTest
     {
         private readonly Client _client;
-        private readonly NameValueCollection _appSettings;
 
         public StoresTest()
         {
-            _appSettings = ConfigurationManager.AppSettings;
-            _client = new Client(_appSettings["apiUrl"], _appSettings["apiKey"], _appSettings["site"]);
+            _client = new Client(
+                Environment.GetEnvironmentVariable("RETAILCRM_URL"),
+                Environment.GetEnvironmentVariable("RETAILCRM_KEY")
+            );
         }
 
         [TestMethod]
@@ -33,7 +32,7 @@ namespace RetailcrmUnitTest.V3
                         {
                             new Dictionary<string, object>
                             {
-                                { "code", _appSettings["store"] },
+                                { "code", Environment.GetEnvironmentVariable("RETAILCRM_STORE") },
                                 { "available", 500 },
                                 { "purchasePrice", 300}
                             }
@@ -47,7 +46,7 @@ namespace RetailcrmUnitTest.V3
                         {
                             new Dictionary<string, object>
                             {
-                                { "code", _appSettings["store"] },
+                                { "code", Environment.GetEnvironmentVariable("RETAILCRM_STORE") },
                                 { "available", 600 },
                                 { "purchasePrice", 350}
                             }
@@ -61,7 +60,7 @@ namespace RetailcrmUnitTest.V3
                         {
                             new Dictionary<string, object>
                             {
-                                { "code", _appSettings["store"] },
+                                { "code", Environment.GetEnvironmentVariable("RETAILCRM_STORE") },
                                 { "available", 700 },
                                 { "purchasePrice", 400}
                             }
@@ -83,7 +82,7 @@ namespace RetailcrmUnitTest.V3
         {
             Dictionary<string, object> filter = new Dictionary<string, object>
             {
-                { "site", _appSettings["site"]},
+                { "site", Environment.GetEnvironmentVariable("RETAILCRM_SITE")},
                 { "details", 1}
             };
 
@@ -121,7 +120,7 @@ namespace RetailcrmUnitTest.V3
                             {
                                 new Dictionary<string, object>
                                 {
-                                    { "code", _appSettings["store"] },
+                                    { "code", Environment.GetEnvironmentVariable("RETAILCRM_STORE") },
                                     { "available", 700 },
                                     { "purchasePrice", 400}
                                 }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Specialized;
-using System.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Retailcrm;
 using Retailcrm.Versions.V3;
 
@@ -13,8 +11,10 @@ namespace RetailcrmUnitTest.V3
 
         public ClientTest()
         {
-            NameValueCollection appSettings = ConfigurationManager.AppSettings;
-            _client = new Client(appSettings["apiUrl"], appSettings["apiKey"], appSettings["site"]);
+            _client = new Client(
+                System.Environment.GetEnvironmentVariable("RETAILCRM_URL"),
+                System.Environment.GetEnvironmentVariable("RETAILCRM_KEY")
+            );
         }
 
         [TestMethod]

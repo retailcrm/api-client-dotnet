@@ -1,5 +1,4 @@
-﻿using System.Collections.Specialized;
-using System.Configuration;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,8 +14,10 @@ namespace RetailcrmUnitTest.V5
 
         public UsersTest()
         {
-            NameValueCollection appSettings = ConfigurationManager.AppSettings;
-            _client = new Client(appSettings["apiUrl"], appSettings["apiKey"]);
+            _client = new Client(
+               Environment.GetEnvironmentVariable("RETAILCRM_URL"),
+               Environment.GetEnvironmentVariable("RETAILCRM_KEY")
+           );
         }
 
         [TestMethod]

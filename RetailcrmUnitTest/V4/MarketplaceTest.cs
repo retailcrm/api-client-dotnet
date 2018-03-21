@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Retailcrm;
@@ -15,8 +14,10 @@ namespace RetailcrmUnitTest.V4
 
         public MarketplaceTest()
         {
-            var appSettings = ConfigurationManager.AppSettings;
-            _client = new Client(appSettings["apiUrl"], appSettings["apiKey"]);
+            _client = new Client(
+                Environment.GetEnvironmentVariable("RETAILCRM_URL"),
+                Environment.GetEnvironmentVariable("RETAILCRM_KEY")
+            );
         }
 
         [TestMethod]

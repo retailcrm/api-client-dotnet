@@ -1,5 +1,4 @@
-﻿using System.Collections.Specialized;
-using System.Configuration;
+﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Retailcrm;
 using Retailcrm.Versions.V4;
@@ -10,12 +9,13 @@ namespace RetailcrmUnitTest.V4
     public class UsersTest
     {
         private readonly Client _client;
-        private readonly NameValueCollection _appSettings;
 
         public UsersTest()
         {
-            _appSettings = ConfigurationManager.AppSettings;
-            _client = new Client(_appSettings["apiUrl"], _appSettings["apiKey"]);
+            _client = new Client(
+                Environment.GetEnvironmentVariable("RETAILCRM_URL"),
+                Environment.GetEnvironmentVariable("RETAILCRM_KEY")
+            );
         }
 
         [TestMethod]
@@ -31,7 +31,7 @@ namespace RetailcrmUnitTest.V4
         [TestMethod]
         public void User()
         {
-            Response usersGroups = _client.User(int.Parse(_appSettings["manager"]));
+            Response usersGroups = _client.User(int.Parse(Environment.GetEnvironmentVariable("RETAILCRM_USER")));
             Assert.IsTrue(usersGroups.IsSuccessfull());
             Assert.IsTrue(usersGroups.GetStatusCode() == 200);
             Assert.IsInstanceOfType(usersGroups, typeof(Response));

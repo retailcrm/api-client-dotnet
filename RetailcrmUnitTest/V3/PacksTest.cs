@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,12 +12,13 @@ namespace RetailcrmUnitTest.V3
     public class PacksTest
     {
         private readonly Client _client;
-        private readonly NameValueCollection _appSettings;
 
         public PacksTest()
         {
-            _appSettings = ConfigurationManager.AppSettings;
-            _client = new Client(_appSettings["apiUrl"], _appSettings["apiKey"], _appSettings["site"]);
+            _client = new Client(
+                Environment.GetEnvironmentVariable("RETAILCRM_URL"),
+                Environment.GetEnvironmentVariable("RETAILCRM_KEY")
+            );
         }
 
         [TestMethod]
@@ -79,7 +78,7 @@ namespace RetailcrmUnitTest.V3
             {
                 { "purchasePrice", 100 },
                 { "quantity", 1},
-                { "store", _appSettings["store"]},
+                { "store", Environment.GetEnvironmentVariable("RETAILCRM_STORE")},
                 { "itemId", id[0]}
             };
 
@@ -125,7 +124,7 @@ namespace RetailcrmUnitTest.V3
         {
             Dictionary<string, object> filter = new Dictionary<string, object>
             {
-                { "store", _appSettings["store"]}
+                { "store", Environment.GetEnvironmentVariable("RETAILCRM_STORE")}
             };
 
             Response response = _client.PacksList(filter, 1, 100);

@@ -12,8 +12,10 @@ namespace RetailcrmUnitTest
 
         public ApiTest()
         {
-            NameValueCollection appSettings = ConfigurationManager.AppSettings;
-            _connection = new Connection(appSettings["apiUrl"], appSettings["apiKey"]);
+            _connection = new Connection(
+                System.Environment.GetEnvironmentVariable("RETAILCRM_URL"),
+                System.Environment.GetEnvironmentVariable("RETAILCRM_KEY")
+            );
         }
 
         [TestMethod]

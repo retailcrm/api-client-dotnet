@@ -1,6 +1,4 @@
-﻿using System.Collections.Specialized;
-using System.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Retailcrm;
 
 namespace RetailcrmUnitTest

@@ -77,7 +77,6 @@ namespace Retailcrm
             }
 
             Exception exception = null;
-
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(path);
             request.Method = method;
 
@@ -112,7 +111,6 @@ namespace Retailcrm
                 throw new WebException(exception.ToString(), exception);
             }
 
-            // ReSharper disable once AssignNullToNotNullAttribute
             StreamReader reader = new StreamReader(response.GetResponseStream());
             string responseBody = reader.ReadToEnd();
             int statusCode = (int)response.StatusCode;

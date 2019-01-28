@@ -2,17 +2,17 @@
 <package >
   <metadata>
     <id>Retailcrm.SDK</id>
-    <version>5.1.1</version>
+    <version>5.1.2</version>
     <title>$title$</title>
-    <authors>Retailcrm</authors>
-    <owners>Retailcrm</owners>
-    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
-    <projectUrl>http://retailcrm.ru</projectUrl>
-    <iconUrl>http://www.retailcrm.ru/favicon.ico</iconUrl>
+    <authors>retailCRM</authors>
+    <owners>retailCRM</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://retailcrm.ru</projectUrl>
+    <iconUrl>https://help.retailcrm.ru/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Multiversion API client for RetailCRM</description>
-    <releaseNotes>Update tests, setup auto builds</releaseNotes>
-    <copyright>Copyright 2017-2018</copyright>
+    <description>Multiversion API client for retailCRM</description>
+    <releaseNotes>Fix POST request for big data</releaseNotes>
+    <copyright>Copyright 2017-2019</copyright>
     <tags>crm ecommerce retailcrm sdk</tags>
   </metadata>
 </package>

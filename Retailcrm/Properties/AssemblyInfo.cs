@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
 [assembly: AssemblyTitle("Retailcrm.SDK")]
-[assembly: AssemblyDescription("Multiversion API client for RetailCRM")]
+[assembly: AssemblyDescription("Multiversion API client for retailCRM")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("RetailDriver LLC")]
 [assembly: AssemblyProduct("Retailcrm.SDK")]
-[assembly: AssemblyCopyright("Copyright © RetailDriver LLC 2017")]
+[assembly: AssemblyCopyright("Copyright © RetailDriver LLC 2019")]
 [assembly: AssemblyTrademark("RetailDriver LLC")]
 [assembly: AssemblyCulture("")]
 

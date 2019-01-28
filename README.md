@@ -1,6 +1,5 @@
 [![Visual Studio Team services](https://img.shields.io/vso/build/gwinn/f01d2ec1-f511-4908-8c02-d48757d71370/3.svg?style=flat-square)](https://visualstudio.com)
-[![NuGet](https://img.shields.io/nuget/v/Retailcrm.SDK.svg?style=flat-square)](https://www.nuget.org/packages/Retailcrm.SDK/)
-
+[![NuGet](https://img.shields.io/nuget/v/Retailcrm.SDK.svg)](https://www.nuget.org/packages/Retailcrm.SDK/)
 
 # retailCRM API C# client
 

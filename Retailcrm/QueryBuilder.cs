@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace Retailcrm
 {
@@ -37,8 +38,8 @@ namespace Retailcrm
             return String.Join(argSeperator,
                 _keyValuePairs.Select(kvp =>
                 {
-                    var key = Uri.EscapeDataString(kvp.Key);
-                    var value = Uri.EscapeDataString(kvp.Value.ToString());
+                    var key = HttpUtility.UrlEncode(kvp.Key);
+                    var value = HttpUtility.UrlEncode(kvp.Value.ToString());
                     return $"{key}={value}";
                 }));
         }

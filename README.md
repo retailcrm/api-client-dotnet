@@ -23,8 +23,8 @@ using Retailcrm.Versions.V5;
 Client api = new Client("https://demo.retailcrm.ru", "T9DMPvuNt7FQJMszHUdG8Fkt6xHsqngH");
 Response response = api.OrdersGet("12345", "externalId");
 
-if (response.isSuccessful()) {
-    Debug.WriteLine(Response.GetRawResponse());
+if (response.IsSuccessful()) {
+    Debug.WriteLine(response.GetRawResponse());
 } else {
     Debug.WriteLine($"Ошибка: [Статус HTTP-ответа {response.GetStatusCode().ToString()}]");
 }
@@ -63,8 +63,8 @@ Response response = api.OrdersCreate(new Dictionary<string, object>
     }}
 });
 
-if (response.isSuccessful()) {
-    Debug.WriteLine(Response.GetResponse()["externalId"].ToString());
+if (response.IsSuccessful()) {
+    Debug.WriteLine(response.GetResponse()["externalId"].ToString());
 } else {
     Debug.WriteLine($"Ошибка: [Статус HTTP-ответа {response.GetStatusCode().ToString()}]");
 }

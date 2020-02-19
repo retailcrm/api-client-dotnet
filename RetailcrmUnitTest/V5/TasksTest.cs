@@ -21,6 +21,7 @@ namespace RetailcrmUnitTest.V5
         }
 
         [TestMethod]
+        [Ignore]
         public void TasksCreateUpdateGet()
         {
             DateTime datetime = DateTime.Now;

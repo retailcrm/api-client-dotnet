@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -22,6 +23,7 @@ namespace RetailcrmUnitTest.V3
         }
 
         [TestMethod]
+        [Ignore]
         public void PacksCreateUpdateReadDelete()
         {
             string uid = Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 12);
@@ -69,8 +71,7 @@ namespace RetailcrmUnitTest.V3
 
             foreach (Dictionary<string, object> s in arr.OfType<Dictionary<string, object>>())
             {
-                int itemId;
-                int.TryParse(s["id"].ToString(), NumberStyles.Any, null, out itemId);
+                int.TryParse(s["id"].ToString(), NumberStyles.Any, null, out int itemId);
                 id[0] = itemId;
             }
 
@@ -84,6 +85,7 @@ namespace RetailcrmUnitTest.V3
 
             Response packsCreateResponse = _client.PacksCreate(pack);
 
+            Debug.WriteLine(packsCreateResponse.GetRawResponse());
             Assert.IsTrue(packsCreateResponse.IsSuccessfull());
             Assert.IsTrue(packsCreateResponse.GetStatusCode() == 201);
             Assert.IsInstanceOfType(packsCreateResponse, typeof(Response));

@@ -20,6 +20,7 @@ namespace RetailcrmUnitTest.V3
         }
 
         [TestMethod]
+        [Ignore]
         public void TelephonyManagerGet()
         {
             Response response = _client.TelephonyManagerGet("+79999999999");

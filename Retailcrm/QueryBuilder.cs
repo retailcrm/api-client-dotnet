@@ -52,10 +52,9 @@ namespace Retailcrm
         /// <param name="allowObjects"></param>
         private void AddEntry(string prefix, object instance, bool allowObjects)
         {
-            var dictionary = instance as IDictionary;
             var collection = instance as ICollection;
 
-            if (dictionary != null)
+            if (instance is IDictionary dictionary)
             {
                 Add(prefix, GetDictionaryAdapter(dictionary));
             }
@@ -104,7 +103,7 @@ namespace Retailcrm
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        private IEnumerable<Entry> GetObjectAdapter(object data)
+        private static IEnumerable<Entry> GetObjectAdapter(object data)
         {
             var properties = data.GetType().GetProperties();
 
@@ -123,7 +122,7 @@ namespace Retailcrm
         /// </summary>
         /// <param name="collection"></param>
         /// <returns></returns>
-        private IEnumerable<Entry> GetArrayAdapter(ICollection collection)
+        private static IEnumerable<Entry> GetArrayAdapter(ICollection collection)
         {
             int i = 0;
             foreach (var item in collection)
@@ -142,7 +141,7 @@ namespace Retailcrm
         /// </summary>
         /// <param name="collection"></param>
         /// <returns></returns>
-        private IEnumerable<Entry> GetDictionaryAdapter(IDictionary collection)
+        private static IEnumerable<Entry> GetDictionaryAdapter(IDictionary collection)
         {
             foreach (DictionaryEntry item in collection)
             {

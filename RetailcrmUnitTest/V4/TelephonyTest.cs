@@ -60,6 +60,7 @@ namespace RetailcrmUnitTest.V4
         }
 
         [TestMethod]
+        [Ignore]
         public void TelephonyCallEvent()
         {
             Response response = _client.TelephonyCallEvent(

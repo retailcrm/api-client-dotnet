@@ -25,11 +25,29 @@ namespace RetailcrmUnitTest.V5
         [TestMethod]
         public void NotesCreateDelete()
         {
+            Dictionary<string, object> customer = new Dictionary<string, object>
+            {
+                {"externalId", Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 12)},
+                {"lastName", "Took"},
+                {"firstName", "Peregrin"},
+                {"email", "took@example.com"},
+                {"phone", "+78888888989"}
+            };
+
+            Response createResponse = _client.CustomersCreate(customer);
+
+            Assert.IsTrue(createResponse.IsSuccessfull());
+            Assert.IsInstanceOfType(createResponse, typeof(Response));
+            Assert.IsTrue(createResponse.GetStatusCode() == 201);
+            Assert.IsTrue(createResponse.GetResponse().ContainsKey("id"));
+
+            string id = createResponse.GetResponse()["id"].ToString();
+
             Response responseFiltered = _client.NotesCreate(
                 new Dictionary<string, object>
                 {
                     { "text", "test task" },
-                    { "customer", new Dictionary<string, object> { { "id", "4717" } }},
+                    { "customer", new Dictionary<string, object> { { "id", id } }},
                     { "managerId", Environment.GetEnvironmentVariable("RETAILCRM_USER")}
                 }
             );

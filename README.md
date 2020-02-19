@@ -1,4 +1,4 @@
-[![AppVeyor](https://img.shields.io/appveyor/build/gwinn/api-client-dotnet?style=flat-square)](https://ci.appveyor.com/project/gwinn/api-client-dotnet)
+[![AppVeyor](https://img.shields.io/appveyor/build/retailcrm/api-client-dotnet?style=flat-square)](https://ci.appveyor.com/project/retailcrm/api-client-dotnet)
 [![NuGet](https://img.shields.io/nuget/v/Retailcrm.SDK.svg?style=flat-square)](https://www.nuget.org/packages/Retailcrm.SDK/)
 
 

@@ -7,7 +7,6 @@ branches:
 skip_tags: true
 image: Visual Studio 2019
 configuration: Release
-platform: Any CPU
 environment:
   RETAILCRM_URL:
     secure: +XvDVl4qowEEYYTdURDytjGjtBPeyehSzCqQs4XcavM=
@@ -19,13 +18,8 @@ environment:
     secure: UCnYSIgosQyIqtVwDrVv4w==
   RETAILCRM_USER:
     secure: tClF7XYbv+nGE5WpZIF7ng==
+before_build:
+  - nuget restore
 build:
   publish_nuget: true
   verbosity: minimal
-deploy:
-- provider: NuGet
-  api_key:
-    secure: bFrR6FUHRJ8ZboQJWIbnPK4GHrje639D4DurAGyGWYxVX1aewPGsf2akmIcD2/33
-  skip_symbols: false
-  on:
-    branch: master

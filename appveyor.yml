@@ -19,7 +19,6 @@ environment:
   RETAILCRM_USER:
     secure: tClF7XYbv+nGE5WpZIF7ng==
 before_build:
-  - nuget restore
+- ps: nuget restore
 build:
-  publish_nuget: true
   verbosity: minimal

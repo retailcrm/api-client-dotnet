@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Multiversion API client for retailCRM</description>
     <releaseNotes>Fix POST request for big data</releaseNotes>
-    <copyright>Copyright 2017-2019</copyright>
+    <copyright>Copyright 2017-2020</copyright>
     <tags>crm ecommerce retailcrm sdk</tags>
   </metadata>
 </package>

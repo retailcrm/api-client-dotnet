@@ -2,12 +2,12 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("RetailcrmUnitTest")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Tests for RetailCRM SDK")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("RetailDriver LLC")]
 [assembly: AssemblyProduct("RetailcrmUnitTest")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright © RetailDriver LLC 2020")]
+[assembly: AssemblyTrademark("RetailDriver LLC")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
